@@ -66,4 +66,25 @@ def establish():#生成按钮的回调函数
             #在大圆上生成一系列的点
             c.create_text(500+310*math.cos(2*pi*i/x1),375+310*math.sin(2*pi*i/x1),text=int(i+1))#在每个点边上生成数字
 Button(t,text='存储',command=get).place(x=230,y=35)
-Button(t,text='生成',command=establish).place(x=150,y=0)       
+Button(t,text='生成',command=establish).place(x=150,y=0)     
+def cal():#计算按钮的回调函数，采用弗洛伊德算法
+    global a
+    if a==2:#a=2时触发计算函数
+        a=3
+        for k in range(x1):
+            for i in range(x1):
+                for j in range(x1):
+                    if matrix[i][k]!=0 and matrix[k][j]!=0:#判断两点之间是否有距离
+                        if matrix[i][k]+matrix[k][j]<matrix[i][j] or matrix[i][j]==0:
+                            matrix[i][j]=matrix[i][k]+matrix[k][j]
+                            trans[i][j]=k+1#i,j之间的中间点变成k+1
+Button(t,text='计算',command=cal).place(x=350,y=35)
+Label(t,text='你想查看              到             的距离:').place(x=1040,y=110)
+global getstart
+global getend
+getstart=Entry(t,width=5)#查看的起点
+getstart.place(x=1100,y=110)
+getend=Entry(t,width=5)#查看的终点
+getend.place(x=1170,y=110)
+T=Text(t,width=46,height=45)#最短路径显示框
+T.place(x=1020,y=140)  
