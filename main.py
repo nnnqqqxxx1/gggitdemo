@@ -88,3 +88,34 @@ getend=Entry(t,width=5)#查看的终点
 getend.place(x=1170,y=110)
 T=Text(t,width=46,height=45)#最短路径显示框
 T.place(x=1020,y=140)  
+def look():#查看按钮的回调函数
+    global a
+    if a==3 or a==4:#a=3或4并且输入的数据符合要求时，查看函数被触发
+        if getstart.get().isdigit()==True and int(getstart.get())>0 and getend.get().isdigit()==True and int(getend.get())>0:
+            a=4
+            gets=int(getstart.get())
+            gete=int(getend.get())
+            T.insert('insert','点')
+            T.insert('insert',gets)
+            T.insert('insert','到')
+            T.insert('insert',gete)
+            T.insert('insert','的最短路径为:')
+            if gete==gets:#起点和终点一样时
+                T.insert('insert','你输入了两个一样的点！')
+                T.insert('insert','\n')
+            elif matrix[gets-1][gete-1]==0:#两点之间距离为0，即无法连接时
+                T.insert('insert','这两个点之间不可通行哦！')
+                T.insert('insert','\n')
+            else:
+                k=int(trans[gets-1][gete-1])
+                T.insert('insert',gets)
+                while k!=gete:#当中间点不是终点时，要继续循环
+                    T.insert('insert','--->')
+                    T.insert('insert',k)
+                    k=int(trans[k-1][gete-1])
+                T.insert('insert','--->')
+                T.insert('insert',k)
+                T.insert('insert','   距离为')
+                T.insert('insert',matrix[gets-1][gete-1])
+                T.insert('insert','\n')
+Button(t,text='查看',command=look).place(x=1270,y=105)
