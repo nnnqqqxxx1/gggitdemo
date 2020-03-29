@@ -46,3 +46,24 @@ def get():#储存按钮的回调函数
                 A.title('Error')
                 A.geometry('200x100')
                 Label(A,text='你输入的数据有误！',bg='red').place(x=50,y=20)
+def establish():#生成按钮的回调函数
+    global a
+    if a==0 and e1.get().isdigit()==True and int(e1.get())>0:#a等于0并且输入的东西符合要求时，生成函数被触发
+        a=1
+        global x1
+        x1=int(e1.get())
+        global matrix#把一些变量全局化来进行调用
+        global trans
+        global c
+        c=Canvas(t,width=1000,height=750,bg='white')
+        c.place(x=5,y=70)
+        c.create_oval(200,75,800,675)#在一个圆周上显示出这些点
+        matrix=numpy.zeros((x1,x1))#把最短距离矩阵初始化
+        trans=numpy.zeros((x1,x1))#把最短路径中间点初始化
+        for i in range(x1):
+            pi=math.pi
+            c.create_oval(500+300*math.cos(2*pi*i/x1),375+300*math.sin(2*pi*i/x1),504+300*math.cos(2*pi*i/x1),379+300*math.sin(2*pi*i/x1),fill='black')
+            #在大圆上生成一系列的点
+            c.create_text(500+310*math.cos(2*pi*i/x1),375+310*math.sin(2*pi*i/x1),text=int(i+1))#在每个点边上生成数字
+Button(t,text='存储',command=get).place(x=230,y=35)
+Button(t,text='生成',command=establish).place(x=150,y=0)       
